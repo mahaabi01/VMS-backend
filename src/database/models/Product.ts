@@ -70,16 +70,6 @@ class Product extends Model<Product>{
   })
   declare updatedAt: Date
 
-  // //  Relationships
-  // @HasMany(()=>OrderDetail)
-  // declare orderDetails: OrderDetail[];
-
-  // @HasMany(()=>Comment)
-  // declare comments: Comment[];
-
-  // @HasMany(()=>Wishlist)
-  // declare wishlists: Wishlist[];
-
 }
 
 export default Product

@@ -33,13 +33,6 @@ class OrderDetail extends Model<OrderDetail> {
   @UpdatedAt
   @Column(DataTypes.DATE)
   declare updatedAt: Date;
-
-  // //Relationship
-  // @BelongsTo(()=>Order)
-  // declare order: OrderDetail
-  
-  // @BelongsTo(()=>Product)
-  // declare product: Product;
 }
 
 export default OrderDetail;

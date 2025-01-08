@@ -26,15 +26,6 @@ class Wishlist extends Model<Wishlist> {
     type: DataTypes.DATE,
   })
   declare createdAt: Date
-
-  // //relationship
-  // @BelongsTo(()=>User)
-  // declare user: User;
-
-  // @BelongsTo(()=>Product)
-  // declare product:Product;
-
-  
 }
 
 export default Wishlist;

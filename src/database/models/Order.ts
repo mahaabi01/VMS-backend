@@ -56,18 +56,6 @@ class Order extends Model<Order> {
     type: DataTypes.DECIMAL,
   })
   declare remainingAmount: number;
-
-
-
-  // //Relationships
-  // @BelongsTo(()=>User)
-  // declare user:User;
-
-  // @HasMany(()=>OrderDetail)
-  // declare orderDetails: OrderDetail[];
-
-  // @HasMany(()=>Payment)
-  // declare payments: Payment[];
 }
 
 export default Order;

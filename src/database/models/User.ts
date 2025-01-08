@@ -60,23 +60,6 @@ class User extends Model<User> {
     type: DataTypes.DATE,
   })
   declare createdAt: Date;
-
-  // //Relationships 
-  // // A user can have many Orders
-  // @HasMany(()=>Order)
-  // declare orders: Order[];
-
-  // //A user can make many comments
-  // @HasMany(()=>Comment)
-  // declare comments: Comment[];
-
-  // //A user can have multiple wishlist items
-  // @HasMany(()=>Wishlist)
-  // declare wishlist:Wishlist[];
-
-  // //A user can have multiple credit ledger entries
-  // @HasMany(()=>CreditLedger)
-  // declare creditLedgers:CreditLedger[];
 }
 
 export default User;

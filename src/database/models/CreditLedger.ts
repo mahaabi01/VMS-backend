@@ -44,10 +44,6 @@ class CreditLedger extends Model<CreditLedger> {
     type: DataTypes.STRING,
   })
   declare paymentHistory: string;
-
-  // //relationship
-  // @BelongsTo(()=>User)
-  // declare user: User;
 }
 
 export default CreditLedger;

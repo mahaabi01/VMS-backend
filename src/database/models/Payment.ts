@@ -52,10 +52,6 @@ class Payment extends Model<Payment> {
   @UpdatedAt
   @Column(DataTypes.DATE)
   declare updatedAt: Date;
-
-  // //relationship
-  // @BelongsTo(()=>Order)
-  // declare order: Order;
 }
 
 export default Payment;

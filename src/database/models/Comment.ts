@@ -31,15 +31,6 @@ class Comment extends Model<Comment> {
   @CreatedAt
   @Column(DataTypes.DATE)
   declare createdAt: Date;
-
-  // //relationships
-  // @BelongsTo(()=>User)
-  // declare user:User;
-
-  // @BelongsTo(()=>Product)
-  // declare product: Product;
-
-
 }
 
 export default Comment;
