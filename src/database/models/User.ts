@@ -25,6 +25,12 @@ class User extends Model<User> {
   declare name: string;
 
   @Column({
+    type: DataTypes.ENUM('customer', 'admin'),
+    defaultValue: 'customer'
+  })
+  declare role:string
+
+  @Column({
     type: DataTypes.STRING,
     unique: true,
     allowNull: false
@@ -54,12 +60,6 @@ class User extends Model<User> {
     allowNull: true,
   })
   declare address: string;
-
-  @CreatedAt
-  @Column({
-    type: DataTypes.DATE,
-  })
-  declare createdAt: Date;
 }
 
 export default User;

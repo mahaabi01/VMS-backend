@@ -57,19 +57,6 @@ class Product extends Model<Product>{
     type : DataTypes.STRING
   })
   declare imageUrl : string
-
-  @CreatedAt
-  @Column({
-    type : DataTypes.DATE
-  })
-  declare cretedAt: Date
-
-  @UpdatedAt
-  @Column({
-    type : DataTypes.DATE
-  })
-  declare updatedAt: Date
-
 }
 
 export default Product
