@@ -1,50 +1,50 @@
-import { Table, Column, Model, CreatedAt, HasMany } from "sequelize-typescript";
-import Order from "./Order";
-import Comment from "./Comment";
-import Wishlist from "./Wishlist";
-import CreditLedger from "./CreditLedger";
-import { DataTypes } from "sequelize";
+import {
+  Table,
+  Column,
+  Model,
+  DataType
+} from "sequelize-typescript";
 
 @Table({
   tableName: "users",
   modelName: "User",
   timestamps: true,
 })
-class User extends Model<User> {
+class User extends Model {
   @Column({
     primaryKey: true,
-    type: DataTypes.UUID,
-    defaultValue: DataTypes.UUIDV4,
+    type: DataType.UUID,
+    defaultValue: DataType.UUIDV4,
   })
   declare id: string;
 
   @Column({
-    type: DataTypes.STRING,
-    allowNull: false
+    type: DataType.STRING,
+    allowNull: false,
   })
   declare name: string;
 
   @Column({
-    type: DataTypes.ENUM('customer', 'admin'),
-    defaultValue: 'customer'
+    type: DataType.ENUM("customer", "admin"),
+    defaultValue: "customer",
   })
-  declare role:string
+  declare role: string;
 
   @Column({
-    type: DataTypes.STRING,
+    type: DataType.STRING,
     unique: true,
-    allowNull: false
+    allowNull: false,
   })
   declare email: string;
 
   @Column({
-    type: DataTypes.STRING,
+    type: DataType.STRING,
     allowNull: false,
   })
   declare password: string;
 
   @Column({
-    type: DataTypes.STRING,
+    type: DataType.STRING,
     allowNull: false,
     validate: {
       len: {
@@ -56,7 +56,7 @@ class User extends Model<User> {
   declare phone: string;
 
   @Column({
-    type: DataTypes.STRING,
+    type: DataType.STRING,
     allowNull: true,
   })
   declare address: string;

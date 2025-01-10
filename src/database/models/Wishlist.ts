@@ -1,7 +1,4 @@
-import { Table, Column, Model, BelongsTo } from "sequelize-typescript";
-import Product from "./Product";
-import User from "./User";
-import { DataTypes } from "sequelize";
+import { Table, Column, Model, DataType } from "sequelize-typescript";
 
 @Table({
   tableName: "wishlists",
@@ -11,21 +8,20 @@ import { DataTypes } from "sequelize";
 class Wishlist extends Model<Wishlist> {
   @Column({
     primaryKey: true,
-    type: DataTypes.UUID,
-    defaultValue: DataTypes.UUIDV4,
+    type: DataType.UUID,
+    defaultValue: DataType.UUIDV4,
   })
   declare id: string;
 
-
   @Column({
-    type: DataTypes.STRING
+    type: DataType.STRING,
   })
   declare productName: string;
-  
+
   @Column({
-    type: DataTypes.DATE,
+    type: DataType.DATE,
   })
-  declare createdAt: Date
+  declare createdAt: Date;
 }
 
 export default Wishlist;

@@ -1,6 +1,4 @@
-import { Table, Column, Model, CreatedAt, UpdatedAt, BelongsTo} from "sequelize-typescript";
-import Order from "./Order";
-import { DataTypes } from "sequelize";
+import { Table, Column, Model, DataType } from "sequelize-typescript";
 
 @Table({
   tableName: "payments",
@@ -10,48 +8,40 @@ import { DataTypes } from "sequelize";
 class Payment extends Model<Payment> {
   @Column({
     primaryKey: true,
-    type: DataTypes.UUID,
-    defaultValue: DataTypes.UUIDV4,
+    type: DataType.UUID,
+    defaultValue: DataType.UUIDV4,
   })
   declare id: string;
 
   @Column({
-    type: DataTypes.STRING,
+    type: DataType.STRING,
   })
   declare paymentMethod: string;
 
   @Column({
-    type: DataTypes.STRING,
+    type: DataType.STRING,
   })
   declare paymentStatus: string;
 
   @Column({
-    type: DataTypes.STRING,
+    type: DataType.STRING,
   })
   declare transactionId: string;
 
   @Column({
-    type: DataTypes.DECIMAL,
+    type: DataType.DECIMAL,
   })
   declare amount: number;
 
   @Column({
-    type: DataTypes.DATE,
+    type: DataType.DATE,
   })
   declare paymentDate: Date;
 
   @Column({
-    type: DataTypes.BOOLEAN,
+    type: DataType.BOOLEAN,
   })
   declare isPartial: boolean;
-
-  @CreatedAt
-  @Column(DataTypes.DATE)
-  declare createdAt: Date;
-
-  @UpdatedAt
-  @Column(DataTypes.DATE)
-  declare updatedAt: Date;
 }
 
 export default Payment;

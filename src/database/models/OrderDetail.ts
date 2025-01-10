@@ -1,7 +1,4 @@
-import { DataTypes } from "sequelize";
-import { Table, Column, Model, CreatedAt, BelongsTo, UpdatedAt } from "sequelize-typescript";
-import Order from "./Order";
-import Product from "./Product";
+import { Table, Column, Model, DataType } from "sequelize-typescript";
 
 @Table({
   tableName: "orderDEtails",
@@ -11,28 +8,20 @@ import Product from "./Product";
 class OrderDetail extends Model<OrderDetail> {
   @Column({
     primaryKey: true,
-    type: DataTypes.UUID,
-    defaultValue: DataTypes.UUIDV4,
+    type: DataType.UUID,
+    defaultValue: DataType.UUIDV4,
   })
   declare id: string;
 
   @Column({
-    type : DataTypes.INTEGER
+    type: DataType.INTEGER,
   })
-  declare quantity : number
+  declare quantity: number;
 
   @Column({
-    type : DataTypes.DECIMAL
+    type: DataType.DECIMAL,
   })
-  declare price : number
-
-  @CreatedAt
-  @Column(DataTypes.DATE)
-  declare createdAt: Date;
-
-  @UpdatedAt
-  @Column(DataTypes.DATE)
-  declare updatedAt: Date;
+  declare price: number;
 }
 
 export default OrderDetail;

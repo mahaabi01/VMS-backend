@@ -1,8 +1,4 @@
-import { Table, Column, Model, BelongsTo, HasMany } from "sequelize-typescript";
-import User from "./User";
-import Payment from "./Payment";
-import OrderDetail from "./OrderDetail";
-import { DataTypes } from "sequelize";
+import { Table, Column, Model, DataType } from "sequelize-typescript";
 
 @Table({
   tableName: "orders",
@@ -12,48 +8,48 @@ import { DataTypes } from "sequelize";
 class Order extends Model<Order> {
   @Column({
     primaryKey: true,
-    type: DataTypes.UUID,
-    defaultValue: DataTypes.UUIDV4,
+    type: DataType.UUID,
+    defaultValue: DataType.UUIDV4,
   })
   declare id: string;
 
   @Column({
-    type: DataTypes.DECIMAL,
+    type: DataType.DECIMAL,
   })
   declare totalAmount: number;
 
   @Column({
-    type: DataTypes.STRING,
+    type: DataType.STRING,
   })
   declare paymentStatus: string;
 
   @Column({
-    type: DataTypes.STRING,
+    type: DataType.STRING,
   })
   declare paymentMethod: string;
 
   @Column({
-    type: DataTypes.STRING,
+    type: DataType.STRING,
   })
   declare orderStatus: string;
 
   @Column({
-    type: DataTypes.BOOLEAN,
+    type: DataType.BOOLEAN,
   })
   declare isCredit: boolean;
 
   @Column({
-    type: DataTypes.DATE,
+    type: DataType.DATE,
   })
   declare dueDate: Date;
 
   @Column({
-    type: DataTypes.DECIMAL,
+    type: DataType.DECIMAL,
   })
   declare paidAmount: number;
 
   @Column({
-    type: DataTypes.DECIMAL,
+    type: DataType.DECIMAL,
   })
   declare remainingAmount: number;
 }

@@ -1,10 +1,11 @@
-import { Request, Response } from "express";
+import { Response } from "express";
 import User from "../database/models/User";
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
+import { AuthRequest } from "../middleware/authMiddleware";
 
 class AuthController{
-  public static async registerUser(req:Request, res:Response):Promise<void>{
+  public static async registerUser(req:AuthRequest, res:Response):Promise<void>{
     const {name, email, password, phone, address, role} = req.body
     if(!name || !email || !password){
       res.status(400).json({
@@ -12,7 +13,7 @@ class AuthController{
       })
       return
     }
-
+  
     await User.create({
       name,
       email,
@@ -27,7 +28,7 @@ class AuthController{
     })
   }
 
-  public static async loginUser(req:Request, res:Response) : Promise<void>{
+  public static async loginUser(req:AuthRequest, res:Response) : Promise<void>{
     const {email, password} = req.body
     if(!email || !password){
       res.status(400).json({

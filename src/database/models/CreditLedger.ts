@@ -1,6 +1,4 @@
-import { DataTypes } from "sequelize";
-import { Table, Column, Model, BelongsTo } from "sequelize-typescript";
-import User from "./User";
+import { Table, Column, Model, DataType } from "sequelize-typescript";
 
 @Table({
   tableName: "creditLedgers",
@@ -10,38 +8,38 @@ import User from "./User";
 class CreditLedger extends Model<CreditLedger> {
   @Column({
     primaryKey: true,
-    type: DataTypes.UUID,
-    defaultValue: DataTypes.UUIDV4,
+    type: DataType.UUID,
+    defaultValue: DataType.UUIDV4,
   })
   declare id: string;
 
   @Column({
-    type: DataTypes.FLOAT,
+    type: DataType.FLOAT,
   })
   declare total_credit: number;
 
   @Column({
-    type: DataTypes.FLOAT,
+    type: DataType.FLOAT,
   })
   declare paidAmount: number;
 
   @Column({
-    type: DataTypes.FLOAT,
+    type: DataType.FLOAT,
   })
   declare remainingAmount: number;
 
   @Column({
-    type: DataTypes.DATE,
+    type: DataType.DATE,
   })
   declare lastPaymentDate: Date;
 
   @Column({
-    type: DataTypes.DATE,
+    type: DataType.DATE,
   })
   declare dueDate: Date;
 
   @Column({
-    type: DataTypes.STRING,
+    type: DataType.STRING,
   })
   declare paymentHistory: string;
 }

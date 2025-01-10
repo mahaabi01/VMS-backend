@@ -1,7 +1,4 @@
-import { Table, Column, Model, CreatedAt, BelongsTo } from "sequelize-typescript";
-import { DataTypes } from "sequelize";
-import Product from "./Product";
-import User from "./User";
+import { Table, Column, Model, DataType } from "sequelize-typescript";
 
 @Table({
   tableName: "comments",
@@ -11,26 +8,25 @@ import User from "./User";
 class Comment extends Model<Comment> {
   @Column({
     primaryKey: true,
-    type: DataTypes.UUID,
-    defaultValue: DataTypes.UUIDV4,
+    type: DataType.UUID,
+    defaultValue: DataType.UUIDV4,
   })
   declare id: string;
 
-
   @Column({
-    type: DataTypes.STRING,
+    type: DataType.STRING,
   })
   declare comment: string;
 
   @Column({
-    type: DataTypes.INTEGER,
+    type: DataType.INTEGER,
   })
-  declare rating: number
+  declare rating: number;
 
-
-  @CreatedAt
-  @Column(DataTypes.DATE)
-  declare createdAt: Date;
+  @Column({
+    type: DataType.INTEGER,
+  })
+  declare likes: number;
 }
 
 export default Comment;

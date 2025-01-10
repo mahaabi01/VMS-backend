@@ -1,62 +1,62 @@
-import {
-  Table,
-  Column,
-  Model,
-  CreatedAt,
-  UpdatedAt,
-  HasMany
-} from 'sequelize-typescript'
-import OrderDetail from './OrderDetail';
-import Comment from './Comment';
-import Wishlist from './Wishlist';
-import { DataTypes } from 'sequelize';
+import { Table, Column, Model, DataType } from "sequelize-typescript";
 
 @Table({
-  tableName : 'products',
-  modelName : 'Product',
-  timestamps : true
+  tableName: "products",
+  modelName: "Product",
+  timestamps: true,
 })
-
-class Product extends Model<Product>{
+class Product extends Model<Product> {
   @Column({
-    primaryKey : true,
-    type : DataTypes.UUID,
-    defaultValue : DataTypes.UUIDV4
+    primaryKey: true,
+    type: DataType.UUID,
+    defaultValue: DataType.UUIDV4,
   })
-  declare id : string;
-
-  @Column({
-    type : DataTypes.STRING,
-    allowNull : false
-  })
-  declare name : string
+  declare id: string;
 
   @Column({
-    type : DataTypes.TEXT
+    type: DataType.STRING,
+    allowNull: false,
   })
-  declare description : string
+  declare name: string;
 
   @Column({
-    type : DataTypes.DECIMAL,
-    allowNull : false,
+    type: DataType.TEXT,
   })
-  declare price : number
+  declare description: string;
 
   @Column({
-    type : DataTypes.STRING
+    type: DataType.DECIMAL,
+    allowNull: false,
   })
-  declare category : string
+  declare price: number;
 
   @Column({
-    type : DataTypes.INTEGER,
-    allowNull : false,
+    type: DataType.ENUM,
+    values: [
+      "electronics",
+      "clothing",
+      "grocery",
+      "furniture",
+      "beauty",
+      "toys",
+      "stationery",
+      "sports",
+      "homeAppliances",
+    ],
+    allowNull: false,
   })
-  declare stock : number
+  declare category: number;
 
   @Column({
-    type : DataTypes.STRING
+    type: DataType.INTEGER,
+    allowNull: false,
   })
-  declare imageUrl : string
+  declare stock: number;
+
+  @Column({
+    type: DataType.STRING,
+  })
+  declare imageUrl: string;
 }
 
-export default Product
+export default Product;
