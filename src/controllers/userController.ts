@@ -6,6 +6,7 @@ import { AuthRequest } from "../middleware/authMiddleware";
 
 class AuthController{
   public static async registerUser(req:AuthRequest, res:Response):Promise<void>{
+    console.log(req.body)
     const {name, email, password, phone, address, role} = req.body
     if(!name || !email || !password){
       res.status(400).json({

@@ -5,7 +5,7 @@ import { Table, Column, Model, DataType } from "sequelize-typescript";
   modelName: "Product",
   timestamps: true,
 })
-class Product extends Model<Product> {
+class Product extends Model {
   @Column({
     primaryKey: true,
     type: DataType.UUID,

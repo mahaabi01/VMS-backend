@@ -18,7 +18,6 @@ const sequelize = new Sequelize({
   port: Number(process.env.DB_PORT),
   models: [__dirname + "/models"],
 });
-console.log(sequelize.models);
 
 sequelize
   .authenticate()

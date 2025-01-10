@@ -5,7 +5,7 @@ import { Table, Column, Model, DataType } from "sequelize-typescript";
   modelName: "CreditLedger",
   timestamps: true,
 })
-class CreditLedger extends Model<CreditLedger> {
+class CreditLedger extends Model{
   @Column({
     primaryKey: true,
     type: DataType.UUID,

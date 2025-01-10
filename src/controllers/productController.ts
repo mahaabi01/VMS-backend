@@ -6,7 +6,9 @@ import User from "../database/models/User";
 class ProductController {
   async addProduct(req: AuthRequest, res: Response): Promise<void> {
     const userId = req.user?.id;
+    console.log("User id:", userId)
     const { name, description, price, category, stock } = req.body;
+    console.log(name)
     let fileName;
     if (req.file) {
       fileName = req.file?.filename;
@@ -137,7 +139,7 @@ class ProductController {
     } catch (error) {
       res.status(500).json({
         message: "An error occurred while updating the product.",
-        error: error.message,
+        error: "Error Occured",
       });
     }
   }

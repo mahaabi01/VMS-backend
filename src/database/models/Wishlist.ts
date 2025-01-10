@@ -5,7 +5,7 @@ import { Table, Column, Model, DataType } from "sequelize-typescript";
   modelName: "WishList",
   timestamps: true,
 })
-class Wishlist extends Model<Wishlist> {
+class Wishlist extends Model{
   @Column({
     primaryKey: true,
     type: DataType.UUID,
