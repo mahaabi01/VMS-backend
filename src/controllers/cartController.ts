@@ -77,9 +77,9 @@ class CartController {
   async deleteMyCartItem(req: AuthRequest, res: Response): Promise<void> {
     const userId = req.user?.id;
     console.log("User ID:", userId);
-    const { id } = req.params;
+    const { cartId } = req.params;
     // check whether above productId product exist or not
-    const cart = await Cart.findByPk(id);
+    const cart = await Cart.findByPk(cartId);
     if (!cart) {
       res.status(404).json({
         message: "No cart with that id",
@@ -90,14 +90,14 @@ class CartController {
     if (userId === cart.dataValues.userId) {
       await Cart.destroy({
         where: {
-          id,
+          cartId,
         },
       });
       res.status(200).json({
         message: "Cart deleted successfully",
       });
     } else {
-      res.status(400).json({
+      res.status(500).json({
         message: "You cannot delete this.",
       });
     }
@@ -105,7 +105,7 @@ class CartController {
 
   //update cart item
   async updateCartItem(req: AuthRequest, res: Response): Promise<void> {
-    const { id } = req.params;
+    const { cartId } = req.params;
     const userId = req.user?.id;
     const { quantity } = req.body;
     if (!quantity) {
@@ -116,7 +116,7 @@ class CartController {
     }
     const cartData = await Cart.findOne({
       where: {
-        id,
+        cartId,
       },
     });
 

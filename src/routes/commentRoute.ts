@@ -1,28 +1,56 @@
-import express, { Router } from 'express'
-import errorHandler from '../services/catchAsyncError'
-import authMiddleware, { Role } from '../middleware/authMiddleware'
-import commentController from '../controllers/commentController'
+import express, { Router } from "express";
+import errorHandler from "../services/catchAsyncError";
+import authMiddleware, { Role } from "../middleware/authMiddleware";
+import commentController from "../controllers/commentController";
 
-const router:Router = express.Router()
+const router: Router = express.Router();
 
-//add to cart
-router.route("/addComment")
-.post(authMiddleware.isAuthenticated, authMiddleware.restrictTo(Role.Customer), cartController.addToCart)
+//add a comment
+router
+  .route("/addComment")
+  .post(
+    authMiddleware.isAuthenticated,
+    authMiddleware.restrictTo(Role.Customer),
+    commentController.addComment
+  );
 
-//get user cart
-router.route("/getMyCart")
-.get(authMiddleware.isAuthenticated, authMiddleware.restrictTo(Role.Customer), cartController.getMyCarts)
+//get all comment
+router
+  .route("/getAllComment/:productId")
+  .get(
+    authMiddleware.isAuthenticated,
+    authMiddleware.restrictTo(Role.Customer || Role.Admin),
+    commentController.getCommentByProductId
+  );
 
-//deleteMyCartItem
-router.route("/deleteMyCartItem")
-.delete(authMiddleware.isAuthenticated, authMiddleware.restrictTo(Role.Customer), cartController.deleteMyCartItem)
+//get single comment
+router
+  .route("/getSingleComment/:commentId")
+  .get(
+    authMiddleware.isAuthenticated,
+    authMiddleware.restrictTo(Role.Customer || Role.Admin),
+    commentController.getCommentById
+  );
 
-//updateCartItem
-router.route("/updateCartItem/:id")
-.patch(authMiddleware.isAuthenticated , authMiddleware.restrictTo(Role.Customer), cartController.updateCartItem)
+//delete Comment
+router
+  .route("/deleteComment/:commentId")
+  .delete(
+    authMiddleware.isAuthenticated,
+    authMiddleware.restrictTo(Role.Customer || Role.Admin),
+    commentController.deleteComment
+  );
 
-//delete Cart Item
-router.route("/deleteMyCart/:id")
-.delete(authMiddleware.isAuthenticated, cartController.deleteMyCartItem)
+//update Comment
+router
+  .route("/updateComment/:commentId")
+  .patch(
+    authMiddleware.isAuthenticated,
+    authMiddleware.restrictTo(Role.Customer || Role.Admin),
+    commentController.updateComment
+  );
 
-export default router
+//like comment
+
+
+export default router;

@@ -3,20 +3,38 @@ import Comment from "../database/models/Comment";
 import { AuthRequest } from "../middleware/authMiddleware";
 import User from "../database/models/User";
 
+// export interface AuthProductRequest extends AuthRequest {
+//   user?: {
+//     name: string;
+//     role: Role;
+//     email: string;
+//     password: string;
+//     phone: string;
+//     address: string;
+//     id: string;
+//   },
+//   product?: {
+//     productId: string
+//   }
+// }
+
 class CommentController {
   //add comment
   async addComment(req: AuthRequest, res: Response): Promise<void> {
     const userId = req.user?.id;
-    const { comment, rating } = req.body;
+    const { comment, rating, productId } = req.body;
     if (!comment || !rating) {
       res.status(400).json({
-        message: "Please provide comment and rating.",
+        message: "Please provide productId, comment and rating.",
       });
       return;
     }
     await Comment.create({
       comment,
-      rating
+      rating,
+      productId,
+      likes: 0,
+      userId,
     });
     res.status(200).json({
       message: "Comment added successfully.",
@@ -25,7 +43,11 @@ class CommentController {
 
   //get all comments
   async getCommentByProductId(req: Request, res: Response): Promise<void> {
+    const { productId } = req.params;
     const data = await Comment.findAll({
+      where: {
+        productId,
+      },
       include: [
         {
           model: User,
@@ -39,18 +61,18 @@ class CommentController {
     });
   }
 
-
   //get single comment
   async getCommentById(req: Request, res: Response): Promise<void> {
-    const id = req.params.id;
+    const { commentId } = req.params;
+    console.log("Comment ID:", commentId);
     const data = await Comment.findOne({
       where: {
-        id: id,
+        id: commentId,
       },
       include: [
         {
           model: User,
-          attributes: ["id", "email", "username"],
+          attributes: ["id", "email", "name"],
         },
       ],
     });
@@ -67,19 +89,27 @@ class CommentController {
   }
 
   //delete Comment
-  async deleteComment(req: Request, res: Response): Promise<void> {
-    const { id } = req.params;
-    const data = await Comment.findAll({
+  async deleteComment(req: AuthRequest, res: Response): Promise<void> {
+    const userId = req.user?.id;
+    console.log("User ID:", userId);
+    const { commentId } = req.params;
+    const comment = await Comment.findAll({
       where: {
-        id: id,
+        id: commentId,
       },
     });
-    if (data.length > 0) {
-      await Comment.destroy({
-        where: {
-          id: id,
-        },
-      });
+    if (comment.length > 0) {
+      if (userId === comment[0].dataValues.userId) {
+        await Comment.destroy({
+          where: {
+            id: commentId,
+          },
+        });
+      } else {
+        res.status(500).json({
+          message: "You cannot delete this comment.",
+        });
+      }
       res.status(200).json({
         message: "Comment deleted successfully.",
       });
@@ -91,10 +121,10 @@ class CommentController {
   }
 
   //updateProduct
-  async updateComment(req: Request, res: Response): Promise<void> {
-    const { id } = req.params;
+  async updateComment(req: AuthRequest, res: Response): Promise<void> {
+    const userId = req.user?.id;
+    const { commentId: id } = req.params;
     const { comment, rating } = req.body;
-
     const existingComment = await Comment.findByPk(id);
 
     if (!existingComment) {
@@ -103,34 +133,35 @@ class CommentController {
       });
       return;
     }
+    if (userId === existingComment.dataValues.userId) {
+      try {
+        await Comment.update(
+          {
+            ...(comment && { comment }),
+            ...(rating && { rating }),
+          },
+          { where: { id } }
+        );
 
-    try {
-      await Comment.update(
-        {
-          ...(comment && { comment }),
-          ...(rating && { rating }),
-        },
-        { where: { id } }
-      );
-
-      res.status(200).json({
-        message: "Comment updated successfully.",
-      });
-    } catch (error) {
-      res.status(500).json({
-        message: "An error occurred while updating the comment.",
-        error: error.message,
+        res.status(200).json({
+          message: "Comment updated successfully.",
+        });
+      } catch (error) {
+        res.status(500).json({
+          message: "An error occurred while updating the comment.",
+        });
+      }
+    } else {
+      res.status(400).json({
+        message: "You cannot update this comment.",
       });
     }
   }
-
   //like comment
-
-
+ 
+  
 
   //unlike comment
-
-  
 }
 
 export default new CommentController();

@@ -10,6 +10,7 @@ import "./database/connection"; //db connection code
 import userRoute from './routes/userRoute'
 import productRoute from './routes/productRoute'
 import cartRoute from './routes/cartRoute'
+import commentRoute from './routes/commentRoute'
 import adminSeeder from "./adminSeeder";
 import cors from 'cors'
 
@@ -24,6 +25,7 @@ adminSeeder()
 app.use("", userRoute)
 app.use("/product", productRoute)
 app.use("/cart", cartRoute)
+app.use("/comment", commentRoute)
 
 //giving access to use this folder for reading
 app.use(express.static("./uploads"))

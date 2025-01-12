@@ -18,11 +18,11 @@ router.route("/deleteMyCartItem")
 .delete(authMiddleware.isAuthenticated, authMiddleware.restrictTo(Role.Customer), cartController.deleteMyCartItem)
 
 //updateCartItem
-router.route("/updateCartItem/:id")
+router.route("/updateCartItem/:cartId")
 .patch(authMiddleware.isAuthenticated , authMiddleware.restrictTo(Role.Customer), cartController.updateCartItem)
 
 //delete Cart Item
-router.route("/deleteMyCart/:id")
+router.route("/deleteMyCart/:cartId")
 .delete(authMiddleware.isAuthenticated, cartController.deleteMyCartItem)
 
 export default router

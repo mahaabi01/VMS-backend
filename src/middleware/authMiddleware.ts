@@ -53,7 +53,6 @@ class authMiddleware {
               return;
             }
             req.user = userData;
-            console.log("Request dot user:", req.user)
             next();
           } catch (error) {
             console.log("Error triggered !")
