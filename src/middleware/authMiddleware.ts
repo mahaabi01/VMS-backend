@@ -27,7 +27,6 @@ class authMiddleware {
   ): Promise<void> {
     //get token from user
     const token = req.headers.authorization;
-    console.log("Token:", token);
     if (!token || token === undefined) {
       res.status(403).json({
         message: "Token not provided.",
@@ -53,12 +52,14 @@ class authMiddleware {
               });
               return;
             }
-            console.log("User data:", userData);
             req.user = userData;
+            console.log("Request dot user:", req.user)
             next();
           } catch (error) {
+            console.log("Error triggered !")
             res.status(500).json({
               message: "Something went wrong.",
+              error: error
             });
           }
         }

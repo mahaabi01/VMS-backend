@@ -124,7 +124,7 @@ class CommentController {
     }
   }
 
-  //like comment 
+  //like comment
 
 
 

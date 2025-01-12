@@ -1,12 +1,12 @@
 import express, { Router } from 'express'
 import errorHandler from '../services/catchAsyncError'
-import cartController from '../controllers/cartController'
 import authMiddleware, { Role } from '../middleware/authMiddleware'
+import commentController from '../controllers/commentController'
 
 const router:Router = express.Router()
 
 //add to cart
-router.route("/addToCart")
+router.route("/addComment")
 .post(authMiddleware.isAuthenticated, authMiddleware.restrictTo(Role.Customer), cartController.addToCart)
 
 //get user cart

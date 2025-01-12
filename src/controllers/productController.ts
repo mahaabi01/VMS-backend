@@ -8,10 +8,12 @@ class ProductController {
     const userId = req.user?.id;
     console.log("User id:", userId)
     const { name, description, price, category, stock } = req.body;
-    console.log(name)
+    console.log("Name:", name)
+    console.log("Req dot file content:", req.file)
     let fileName;
     if (req.file) {
       fileName = req.file?.filename;
+      console.log("FileName:", fileName)
     } else {
       fileName =
         "https://img.freepik.com/free-vector/camera-pictures_1284-13129.jpg?t=st=1736498845~exp=1736502445~hmac=9e77ecb9f7066a5fb416430593021e23493e03c1ce98239bb1221a30f63fd00b&w=740";
@@ -61,7 +63,7 @@ class ProductController {
       include: [
         {
           model: User,
-          attributes: ["id", "email", "username"],
+          attributes: ["id", "email", "name"],
         },
       ],
     });
@@ -101,7 +103,7 @@ class ProductController {
     }
   }
 
-  //updateProduct
+  //update Product
   async updateProduct(req: Request, res: Response): Promise<void> {
     const { id } = req.params;
     const { name, description, price, category, stock } = req.body;

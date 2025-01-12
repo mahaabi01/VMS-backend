@@ -25,6 +25,9 @@ app.use("", userRoute)
 app.use("/product", productRoute)
 app.use("/cart", cartRoute)
 
+//giving access to use this folder for reading
+app.use(express.static("./uploads"))
+
 app.listen(PORT, () => {
   console.log("Server has started at port,", PORT);
 });
