@@ -11,6 +11,7 @@ import userRoute from './routes/userRoute'
 import productRoute from './routes/productRoute'
 import cartRoute from './routes/cartRoute'
 import commentRoute from './routes/commentRoute'
+import wishlistRoute from './routes/wishlistRoute'
 import adminSeeder from "./adminSeeder";
 import cors from 'cors'
 
@@ -26,6 +27,7 @@ app.use("", userRoute)
 app.use("/product", productRoute)
 app.use("/cart", cartRoute)
 app.use("/comment", commentRoute)
+app.use("/wishlist", wishlistRoute)
 
 //giving access to use this folder for reading
 app.use(express.static("./uploads"))

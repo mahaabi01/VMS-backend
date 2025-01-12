@@ -8,8 +8,6 @@ class CartController {
   async addToCart(req: AuthRequest, res: Response): Promise<void> {
     const userId = req.user?.id;
     const { quantity, productId } = req.body;
-    console.log("User id:", userId);
-    console.log("Quantity and Product:", quantity, productId);
     if (!quantity || !productId) {
       res.status(400).json({
         message: "Please provide quantity,productId",
@@ -76,7 +74,6 @@ class CartController {
   //delete user cart item
   async deleteMyCartItem(req: AuthRequest, res: Response): Promise<void> {
     const userId = req.user?.id;
-    console.log("User ID:", userId);
     const { cartId } = req.params;
     // check whether above productId product exist or not
     const cart = await Cart.findByPk(cartId);
@@ -116,20 +113,25 @@ class CartController {
     }
     const cartData = await Cart.findOne({
       where: {
-        cartId,
+        id: cartId,
       },
     });
-
     if (cartData) {
-      cartData.quantity = quantity;
-      await cartData?.save();
-      res.status(200).json({
-        message: "Product of cart updated successfully",
-        data: cartData,
-      });
+      if (userId === cartData?.dataValues.userId) {
+        cartData.quantity = quantity;
+        await cartData?.save();
+        res.status(200).json({
+          message: "Product of cart updated successfully",
+          data: cartData,
+        });
+      } else {
+        res.status(500).json({
+          message: "You cannot update that cart.",
+        });
+      }
     } else {
       res.status(404).json({
-        message: "No productId of that userId",
+        message: "No product cart of that user",
       });
     }
   }
