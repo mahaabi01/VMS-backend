@@ -91,7 +91,6 @@ class CommentController {
   //delete Comment
   async deleteComment(req: AuthRequest, res: Response): Promise<void> {
     const userId = req.user?.id;
-    console.log("User ID:", userId);
     const { commentId } = req.params;
     const comment = await Comment.findAll({
       where: {
