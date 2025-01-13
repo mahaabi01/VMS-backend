@@ -15,7 +15,7 @@ router
   .post(
     authMiddleware.isAuthenticated,
     authMiddleware.restrictTo(Role.Admin),
-    upload.single("image"),
+    upload.single("imageUrl"),
     productController.addProduct
   );
 

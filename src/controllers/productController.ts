@@ -9,10 +9,10 @@ class ProductController {
     console.log("User id:", userId)
     const { name, description, price, category, stock } = req.body;
     console.log("Name:", name)
-    console.log("Req dot file content:", req.file)
+    console.log("Req dot file content:", req.file?.filename)
     let fileName;
     if (req.file) {
-      fileName = req.file?.filename;
+      fileName = req.file.filename;
       console.log("FileName:", fileName)
     } else {
       fileName =
