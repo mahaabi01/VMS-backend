@@ -1,4 +1,5 @@
 import { Table, Column, Model, DataType } from "sequelize-typescript";
+import { PaymentMethod, PaymentStatus } from "../../types/orderTypes";
 
 @Table({
   tableName: "payments",
@@ -14,14 +15,23 @@ class Payment extends Model{
   declare id: string;
 
   @Column({
-    type: DataType.STRING,
-  })
-  declare paymentMethod: string;
+      type: DataType.ENUM,
+      values: [
+        "cod",
+        "khalti"
+      ]
+    })
+    declare paymentMethod: PaymentMethod;
 
   @Column({
-    type: DataType.STRING,
-  })
-  declare paymentStatus: string;
+      type: DataType.ENUM,
+      values: [
+        "paid",
+        "partialPaid",
+        "unpaid"
+      ]
+    })
+    declare paymentStatus: PaymentStatus;
 
   @Column({
     type: DataType.STRING,

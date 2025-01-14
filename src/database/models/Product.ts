@@ -1,4 +1,5 @@
 import { Table, Column, Model, DataType } from "sequelize-typescript";
+import { category } from "../../types/orderTypes";
 
 @Table({
   tableName: "products",
@@ -45,7 +46,7 @@ class Product extends Model {
     ],
     allowNull: false,
   })
-  declare category: number;
+  declare category: category;
 
   @Column({
     type: DataType.INTEGER,

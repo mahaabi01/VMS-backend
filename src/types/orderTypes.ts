@@ -20,6 +20,18 @@ export enum PaymentStatus{
 export enum orderStatus{
 Placed = 'placed',
 Shipped = 'shipped',
-Delivered = 'delevered',
+Delivered = 'delivered',
 Completed = 'completed'
+}
+
+export enum category{
+  Electronics = "electronics",
+  Clothing = "clothing",
+  Grocery = "grocery",
+  Furniture = "furniture",
+  Beauty = "beauty",
+  Toys = "toys",
+  Stationery = "stationery",
+  Sports = "sports",
+  homeAppliances = "homeAppliances"
 }

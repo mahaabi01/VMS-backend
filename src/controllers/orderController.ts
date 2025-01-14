@@ -7,6 +7,7 @@ import User from "../database/models/User";
 import { OrderData } from "../types/orderTypes";
 import OrderDetail from "../database/models/OrderDetail";
 import Payment from "../database/models/Payment";
+import CreditLedger from "../database/models/CreditLedger";
 
 class OrderController {
   //create Order
@@ -40,6 +41,11 @@ class OrderController {
           cartItem[item].dataValues.quantity *
             cartItem[item].dataValues.Product.dataValues.price;
       }
+      if(paidAmount < 0 || paidAmount > totalAmount){
+        res.status(404).json({
+          message: "Payment failed. Not statisfied required amount."
+        })
+      }
       let remainingAmount = totalAmount - paidAmount;
       let orderItems = await Order.create({
         totalAmount,
@@ -51,7 +57,7 @@ class OrderController {
         remainingAmount,
         userId,
       });
-      let paymentData = await Payment.create({
+      await Payment.create({
         paymentMethod,
         paymentStatus,
         amount: paidAmount,
@@ -67,6 +73,24 @@ class OrderController {
           orderId: orderItems.dataValues.id
         })
       }
+      if(isCredit === true){
+        await CreditLedger.create({
+          total_credit : totalAmount,
+          paidAmount,
+          remainingAmount,
+          lastPaymentDate : Date.now(),
+          dueDate : Date.now(),
+          paymentHistory: remainingAmount  === 0 ? "paid": "remaining",
+          userId,
+          orderId:orderItems.dataValues.id
+        })
+      }
+      //delete cart list
+      await Cart.destroy({
+        where:{
+          userId
+        }
+      })
       res.status(200).json({
         message: "Order placed succesfully.",
       });
