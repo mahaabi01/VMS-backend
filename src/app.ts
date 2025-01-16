@@ -12,11 +12,10 @@ import productRoute from "./routes/productRoute";
 import cartRoute from "./routes/cartRoute";
 import commentRoute from "./routes/commentRoute";
 import wishlistRoute from "./routes/wishlistRoute";
-import orderRoute, { router } from "./routes/orderRoute";
+import orderRoute from "./routes/orderRoute";
+import creditLedgerRoute from "./routes/creditLedgerRoute"
 import adminSeeder from "./adminSeeder";
 import cors from "cors";
-import orderController from "./controllers/orderController";
-import authMiddleware, { Role } from "./middleware/authMiddleware";
 
 app.use(
   cors({
@@ -34,6 +33,7 @@ app.use("/cart", cartRoute);
 app.use("/comment", commentRoute);
 app.use("/wishlist", wishlistRoute);
 app.use("/order", orderRoute);
+app.use("/creditledger", creditLedgerRoute)
 
 //giving access to use this folder for reading
 app.use(express.static("./uploads"));

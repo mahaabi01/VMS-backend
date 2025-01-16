@@ -20,7 +20,6 @@ class CartController {
         userId,
       },
     });
-    console.log(cartItem);
     if (cartItem) {
       cartItem.quantity += quantity;
       await cartItem.save();
@@ -47,7 +46,6 @@ class CartController {
 
   //get user cart
   async getMyCarts(req: AuthRequest, res: Response): Promise<void> {
-    console.log("AuthRequest user:", req.user);
     const userId = req.user?.id;
     const cartItems = await Cart.findAll({
       where: {

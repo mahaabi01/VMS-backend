@@ -24,23 +24,30 @@ router
   .route("/getAllProduct")
   .get(errorHandler(productController.getAllProducts));
 
+//get product by category
+router
+  .route("/filter")
+  .get(errorHandler(productController.getProductByFilters));
+
 //get single product
 router.route("/getSingleProduct/:id").get(productController.getSingleProduct);
 
 //delete product
-router.route("/deleteProduct/:id")
-.delete(
-  authMiddleware.isAuthenticated,
-  authMiddleware.restrictTo(Role.Admin),
-  productController.deleteProduct
-)
+router
+  .route("/deleteProduct/:id")
+  .delete(
+    authMiddleware.isAuthenticated,
+    authMiddleware.restrictTo(Role.Admin),
+    productController.deleteProduct
+  );
 
 //update Product
-router.route("/updateProduct/:id")
-.patch(
-  authMiddleware.isAuthenticated,
-  authMiddleware.restrictTo(Role.Admin),
-  productController.updateProduct
-)
+router
+  .route("/updateProduct/:id")
+  .patch(
+    authMiddleware.isAuthenticated,
+    authMiddleware.restrictTo(Role.Admin),
+    productController.updateProduct
+  );
 
 export default router;

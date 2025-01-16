@@ -3,21 +3,6 @@ import Comment from "../database/models/Comment";
 import { AuthRequest } from "../middleware/authMiddleware";
 import User from "../database/models/User";
 
-// export interface AuthProductRequest extends AuthRequest {
-//   user?: {
-//     name: string;
-//     role: Role;
-//     email: string;
-//     password: string;
-//     phone: string;
-//     address: string;
-//     id: string;
-//   },
-//   product?: {
-//     productId: string
-//   }
-// }
-
 class CommentController {
   //add comment
   async addComment(req: AuthRequest, res: Response): Promise<void> {
@@ -64,7 +49,6 @@ class CommentController {
   //get single comment
   async getCommentById(req: Request, res: Response): Promise<void> {
     const { commentId } = req.params;
-    console.log("Comment ID:", commentId);
     const data = await Comment.findOne({
       where: {
         id: commentId,

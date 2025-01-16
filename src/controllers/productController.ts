@@ -2,18 +2,15 @@ import { Request, Response } from "express";
 import Product from "../database/models/Product";
 import { AuthRequest } from "../middleware/authMiddleware";
 import User from "../database/models/User";
+import { Op } from "sequelize";
 
 class ProductController {
   async addProduct(req: AuthRequest, res: Response): Promise<void> {
     const userId = req.user?.id;
-    console.log("User id:", userId)
     const { name, description, price, category, stock } = req.body;
-    console.log("Name:", name)
-    console.log("Req dot file content:", req.file?.filename)
     let fileName;
     if (req.file) {
       fileName = req.file.filename;
-      console.log("FileName:", fileName)
     } else {
       fileName =
         "https://img.freepik.com/free-vector/camera-pictures_1284-13129.jpg?t=st=1736498845~exp=1736502445~hmac=9e77ecb9f7066a5fb416430593021e23493e03c1ce98239bb1221a30f63fd00b&w=740";
@@ -31,6 +28,7 @@ class ProductController {
       category,
       stock,
       imageUrl: fileName,
+      userId,
     });
     res.status(200).json({
       message: "Product added successfully.",
@@ -51,6 +49,51 @@ class ProductController {
       message: "Product fetched successfully",
       data,
     });
+  }
+
+  //get product by category
+  async getProductByFilters(req: Request, res: Response): Promise<void> {
+    const { category, minPrice, maxPrice } = req.query;
+    try {
+      const filters: any = {};
+      if (category) {
+        filters.category = category;
+      }
+      if (minPrice && maxPrice) {
+        filters.price = {
+          [Op.between]: [Number(minPrice), Number(maxPrice)],
+        };
+      } else if (minPrice) {
+        filters.price = {
+          [Op.gte]: Number(minPrice),
+        };
+      } else if (maxPrice) {
+        filters.price = {
+          [Op.lte]: Number(maxPrice),
+        };
+      }
+
+      //fetch products with filters
+      const products = await Product.findAll({
+        where: filters,
+      });
+
+      if (products.length === 0) {
+        res.status(404).json({
+          message: "No products found for the given filters.",
+        });
+        return;
+      }
+      res.status(200).json({
+        message: "Product fetched succesfully.",
+        data: products,
+      });
+    } catch (error) {
+      res.status(500).json({
+        message: "An error occured while retrieving products",
+        error: error,
+      });
+    }
   }
 
   //get single product

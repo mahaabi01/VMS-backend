@@ -147,8 +147,6 @@ class OrderController {
     const { orderStatus } = req.body;
     const existingOrder = await Order.findByPk(id);
 
-    console.log(existingOrder);
-
     if (!existingOrder) {
       res.status(404).json({
         message: "No order with that ID.",
