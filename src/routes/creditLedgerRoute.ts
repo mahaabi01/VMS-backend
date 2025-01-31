@@ -13,15 +13,21 @@ router
     creditLedgerController.updatePayment
   );
 
-  //get credit LedgerById
-  router.route("/getCreditLedger/:id")
+//get credit LedgerById
+router
+  .route("/getCreditLedger/:id")
   .get(
     authMiddleware.isAuthenticated,
     authMiddleware.restrictTo(Role.Admin),
     creditLedgerController.getCreditLedgerById
-  )
+  );
 
-  
-
+router
+  .route("/getMyCreditLedger")
+  .get(
+    authMiddleware.isAuthenticated,
+    authMiddleware.restrictTo(Role.Customer),
+    creditLedgerController.getMyCreditLedger
+  );
 
 export default router;

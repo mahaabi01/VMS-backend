@@ -52,21 +52,44 @@ class CreditLedgerController {
         },
       ],
     });
-    if(!creditLedger){
+    if (!creditLedger) {
       res.status(407).json({
-        message: "No credit ledger found."
-      })
-    }
-    else{
+        message: "No credit ledger found.",
+      });
+    } else {
       res.status(200).json({
         message: "Credit Ledger fetched succesfully.",
-        creditLedger
-      })
+        creditLedger,
+      });
     }
   }
 
-  //get creditLedger by Customer 
-  
+  //get creditLedger by Customer
+  async getMyCreditLedger(req: AuthRequest, res: Response): Promise<void> {
+    const userId = req.user?.id;
+    const creditLedger = await CreditLedger.findAll({
+      where: {
+        userId,
+      },
+      include: [
+        {
+          model: User,
+          attributes: ["id", "name", "email", "phone", "address"],
+        },
+      ],
+    });
+    if (creditLedger.length === 0) {
+      res.status(404).json({
+        message: "No credit ledger found.",
+      });
+    }
+    else{
+      res.status(200).json({
+        message: "Credit Ledger fetched successfully.",
+        data: creditLedger,
+      })
+    }
+  }
 }
 
 export default new CreditLedgerController();

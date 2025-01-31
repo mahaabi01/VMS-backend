@@ -38,6 +38,7 @@ class authMiddleware {
       token,
       process.env.SECRET_KEY as string,
       async (err, decoded: any) => {
+        console.log(err,"error")	
         if (err) {
           res.status(403).json({
             message: "Invalid Token.",
