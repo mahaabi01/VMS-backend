@@ -6,7 +6,7 @@ import { PaymentMethod, PaymentStatus } from "../../types/orderTypes";
   modelName: "Payment",
   timestamps: true,
 })
-class Payment extends Model{
+class Payment extends Model {
   @Column({
     primaryKey: true,
     type: DataType.UUID,
@@ -15,23 +15,16 @@ class Payment extends Model{
   declare id: string;
 
   @Column({
-      type: DataType.ENUM,
-      values: [
-        "cod",
-        "khalti"
-      ]
-    })
-    declare paymentMethod: PaymentMethod;
+    type: DataType.ENUM,
+    values: ["cod", "khalti"],
+  })
+  declare paymentMethod: PaymentMethod;
 
   @Column({
-      type: DataType.ENUM,
-      values: [
-        "paid",
-        "partialPaid",
-        "unpaid"
-      ]
-    })
-    declare paymentStatus: PaymentStatus;
+    type: DataType.ENUM,
+    values: ["paid", "partialPaid", "unpaid"],
+  })
+  declare paymentStatus: PaymentStatus;
 
   @Column({
     type: DataType.STRING,
@@ -52,6 +45,11 @@ class Payment extends Model{
     type: DataType.BOOLEAN,
   })
   declare isPartial: boolean;
+
+  @Column({
+    type: DataType.STRING,
+  })
+  declare pidx: string;
 }
 
 export default Payment;

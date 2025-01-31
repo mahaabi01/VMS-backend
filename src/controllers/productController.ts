@@ -16,6 +16,7 @@ class ProductController {
         "https://img.freepik.com/free-vector/camera-pictures_1284-13129.jpg?t=st=1736498845~exp=1736502445~hmac=9e77ecb9f7066a5fb416430593021e23493e03c1ce98239bb1221a30f63fd00b&w=740";
     }
     if (!name || !description || !price || !category || !stock) {
+      
       res.status(400).json({
         message: "Please provide name, description, price, category and stock.",
       });

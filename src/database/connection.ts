@@ -85,7 +85,7 @@ Cart.belongsTo(User, { foreignKey: "userId" });
 Product.hasMany(Cart, { foreignKey: "productId" });
 Cart.belongsTo(Product, { foreignKey: "productId" });
 
-sequelize.sync({ force: false, alter:false }).then(() => {
+sequelize.sync({ force: false, alter: false }).then(() => {
   console.log("DB migrated !");
 });
 

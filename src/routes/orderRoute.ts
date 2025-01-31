@@ -14,6 +14,12 @@ router
     orderController.createOrder
   );
 
+  //verify transaction
+  router.route("/verify-pidx").post(authMiddleware.isAuthenticated,errorHandler(orderController.verifyTransaction))
+
+  //get order by userId
+  router.route("/getMyOrders").get(authMiddleware.isAuthenticated, errorHandler(orderController.getMyOrders))
+
 //get order by id
 router
   .route("/getorderbyid/:id")
