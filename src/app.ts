@@ -36,7 +36,7 @@ app.use("/order", orderRoute);
 app.use("/creditledger", creditLedgerRoute)
 
 //giving access to use this folder for reading
-app.use(express.static("./uploads"));
+app.use(express.static("./src/uploads"));
 
 app.listen(PORT, () => {
   console.log("Server has started at port,", PORT);

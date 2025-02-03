@@ -4,7 +4,7 @@ import Order from "../database/models/Order";
 import Cart from "../database/models/Cart";
 import Product from "../database/models/Product";
 import User from "../database/models/User";
-import { OrderData, PaymentMethod, PaymentStatus } from "../types/orderTypes";
+import { OrderData, orderStatus, PaymentMethod, PaymentStatus } from "../types/orderTypes";
 import OrderDetail from "../database/models/OrderDetail";
 import Payment from "../database/models/Payment";
 import CreditLedger from "../database/models/CreditLedger";
@@ -151,15 +151,14 @@ class OrderController {
       const {
         paymentStatus,
         paymentMethod,
-        orderStatus,
         isCredit,
         paidAmount,
       }: OrderData = req.body;
 
-      if (!paymentStatus || !paymentMethod || !orderStatus || !paidAmount) {
+      if (!paymentStatus || !paymentMethod || !paidAmount) {
         res.status(400).json({
           message:
-            "Please provide paymentStatus, paymentMethod, orderStatus, paidAmount",
+            "Please provide paymentStatus, paymentMethod, paidAmount",
         });
       }
 
@@ -190,7 +189,7 @@ class OrderController {
         totalAmount,
         paymentStatus,
         paymentMethod,
-        orderStatus,
+        orderStatus: orderStatus.Placed,
         isCredit,
         paidAmount,
         remainingAmount,

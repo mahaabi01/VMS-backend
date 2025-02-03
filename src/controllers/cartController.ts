@@ -74,7 +74,11 @@ class CartController {
     const userId = req.user?.id;
     const { cartId } = req.params;
     // check whether above productId product exist or not
-    const cart = await Cart.findByPk(cartId);
+    const cart = await Cart.findOne({
+      where: {
+        id: cartId,
+      },
+    });
     if (!cart) {
       res.status(404).json({
         message: "No cart with that id",
@@ -85,7 +89,7 @@ class CartController {
     if (userId === cart.dataValues.userId) {
       await Cart.destroy({
         where: {
-          cartId,
+          id: cartId,
         },
       });
       res.status(200).json({
