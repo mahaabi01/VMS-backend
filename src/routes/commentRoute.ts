@@ -51,6 +51,12 @@ router
   );
 
 //like comment
+router
+.route("/likeComment/:commentId")
+.patch(authMiddleware.isAuthenticated,
+  authMiddleware.restrictTo(Role.Customer),
+  commentController.likeComment
+)
 
 
 export default router;

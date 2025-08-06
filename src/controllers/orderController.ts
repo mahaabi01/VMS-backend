@@ -147,7 +147,6 @@ class OrderController {
   async createOrder(req: AuthRequest, res: Response): Promise<void> {
     try {
       const userId = req.user?.id;
-      console.log("User ID:", userId);
       const {
         paymentStatus,
         paymentMethod,

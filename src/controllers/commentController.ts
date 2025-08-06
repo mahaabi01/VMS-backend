@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import Comment from "../database/models/Comment";
 import { AuthRequest } from "../middleware/authMiddleware";
 import User from "../database/models/User";
+import CommentLikes from "../database/models/CommentLikes";
 
 class CommentController {
   //add comment
@@ -141,10 +142,68 @@ class CommentController {
     }
   }
   //like comment
- 
+ async likeComment(req: AuthRequest, res: Response): Promise<void> {
+  const userId = req.user?.id;
+  const { commentId: id } = req.params;
+
+  try {
+    const comment = await Comment.findByPk(id);
+
+    if (!comment) {
+      res.status(404).json({
+        message: "No comment found with the given ID."
+      });
+      return;
+    }
+
+    const existingLike = await CommentLikes.findOne({
+      where: {
+        userId,
+        commentId: id
+      }
+    })
+
+    if(existingLike){
+      // unlike it if already exist
+      await existingLike.destroy();
+
+      await comment.update({ likes: comment.likes - 1});
+
+      res.status(200).json({
+        message: "Like removed.",
+        liked: false,
+        newLikes: comment.likes - 1
+      })
+    }else{
+      // user hasnt liked it
+      await CommentLikes.create({
+        userId,
+        commentId: id,
+      });
+
+      await comment.update({
+        likes: comment.likes + 1
+      })
+
+      res.status(200).json({
+        message: "Like added.",
+        liked: true,
+        newLikes: comment.likes + 1
+      })
+    }
+  }catch(error){
+      console.error(error)
+      res.status(500).json({
+        message: "Something went wrong while toggling the like."
+      })
+    }
+
+}
+
   
 
   //unlike comment
+
 }
 
 export default new CommentController();

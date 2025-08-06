@@ -8,6 +8,7 @@ import OrderDetail from "./models/OrderDetail";
 import Order from "./models/Order";
 import Payment from "./models/Payment";
 import Cart from "./models/Cart";
+import CommentLikes from "./models/CommentLikes";
 
 const sequelize = new Sequelize({
   database: process.env.DB_NAME,
@@ -84,6 +85,15 @@ Cart.belongsTo(User, { foreignKey: "userId" });
 //Product and Cart - One to Manuy
 Product.hasMany(Cart, { foreignKey: "productId" });
 Cart.belongsTo(Product, { foreignKey: "productId" });
+
+//user and commentLike - one to one
+User.hasMany(CommentLikes, {foreignKey: "userId"});
+CommentLikes.belongsTo(User, {foreignKey: "userId"});
+
+// commentLike and comment
+Comment.hasMany(CommentLikes, {foreignKey: "commentId"});
+CommentLikes.belongsTo(Comment, {foreignKey: "commentId"});
+
 
 sequelize.sync({ force: false, alter: false }).then(() => {
   console.log("DB migrated !");

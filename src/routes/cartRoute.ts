@@ -13,16 +13,12 @@ router.route("/addToCart")
 router.route("/getMyCart")
 .get(authMiddleware.isAuthenticated, authMiddleware.restrictTo(Role.Customer), cartController.getMyCarts)
 
-//deleteMyCartItem
-router.route("/deleteMyCartItem")
-.delete(authMiddleware.isAuthenticated, authMiddleware.restrictTo(Role.Customer), cartController.deleteMyCartItem)
-
 //updateCartItem
 router.route("/updateCartItem/:cartId")
 .patch(authMiddleware.isAuthenticated , authMiddleware.restrictTo(Role.Customer), cartController.updateCartItem)
 
-//delete Cart Item
-router.route("/deleteMyCart/:cartId")
-.delete(authMiddleware.isAuthenticated, cartController.deleteMyCartItem)
+//reset Cart 
+router.route("/clearMyCart/:cartId")
+.delete(authMiddleware.isAuthenticated, authMiddleware.restrictTo(Role.Customer), cartController.deleteMyCartItem)
 
 export default router

@@ -68,7 +68,7 @@ class WishlistController {
   async deleteWishlist(req: AuthRequest, res: Response): Promise<void> {
     const userId = req.user?.id;
     const { wishlistId: id } = req.params;
-    //check whether aboce provided wishlistId exist or not
+    //check whether above provided wishlistId exist or not
     const wishlist = await Wishlist.findByPk(id);
     if (!wishlist) {
       res.status(404).json({

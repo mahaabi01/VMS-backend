@@ -17,11 +17,13 @@ import creditLedgerRoute from "./routes/creditLedgerRoute"
 import adminSeeder from "./adminSeeder";
 import cors from "cors";
 
+//giving access to hit api from all site
 app.use(
   cors({
     origin: "*",
   })
 );
+
 app.use(express.json());
 
 //admin seeder

@@ -55,6 +55,7 @@ class ProductController {
   //get product by category
   async getProductByFilters(req: Request, res: Response): Promise<void> {
     const { category, minPrice, maxPrice } = req.query;
+    console.log("Category", category)
     try {
       const filters: any = {};
       if (category) {
